@@ -37,10 +37,11 @@ pipeline {
         }
         
       }
+      sh 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'
       steps {
         sh 'docker run -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY atarax/rbl-control:intermediate /rbl-control -r "eu-west-1" -c list'
-        sh 'docker build . -t atarax/rbl-control'
-        sh 'docker push atarax/rbl-control'
+        sh 'docker tag atarax/rbl-control:intermediate atarax/rbl-control:stable'
+        sh 'docker push atarax/rbl-control:stable'
       }
     }
   }

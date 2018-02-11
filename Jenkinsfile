@@ -1,12 +1,11 @@
 pipeline {
+  agent {
+    docker {
+      image 'golang'
+    }        
+  }
   stages {
     stage('Build') {
-      agent {
-        docker {
-          image 'golang'
-        }
-        
-      }
       steps {
         sh 'ls -la'
         sh 'pwd'

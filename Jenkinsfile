@@ -13,7 +13,10 @@ pipeline {
         sh 'pwd'
         sh 'export GOPATH="/go"'
         sh 'mkdir -p /go/src/github.com/atarax/rbl-control'
-        sh 'cd /go/src/github.com/atarax/ && git clone https://github.com/atarax/rbl-control && cd rbl-control && go get ./...'
+        sh '''cd /go/src/github.com/atarax/ && \
+              git clone https://github.com/atarax/rbl-control && \ 
+              cd rbl-control && \
+              go get ./...'''
         sh 'CGO_ENABLED=0 go build -o bin/rbl-control'
       }
     }
@@ -40,9 +43,9 @@ pipeline {
       steps {
         sh 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'
         sh '''docker run \
-              -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID 
-              -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY 
-              atarax/rbl-control:intermediate 
+              -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+              -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \ 
+              atarax/rbl-control:intermediate  \
               /rbl-control -r "eu-west-1" -c list'''
         sh 'docker tag atarax/rbl-control:intermediate atarax/rbl-control:stable'
         sh 'docker push atarax/rbl-control:stable'

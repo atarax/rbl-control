@@ -26,7 +26,7 @@ pipeline {
       }
       steps {
         sh 'ls -la'
-        sh 'ls -la /src'
+        sh 'ls -la /go/bin/github.com/atarax/rbl-control'
       }
     }
   }

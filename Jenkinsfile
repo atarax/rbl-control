@@ -9,7 +9,8 @@ pipeline {
     stage('Build') {
       steps {
         sh 'ls -la'
-        sh 'export GOPATH="$(pwd)/go"'
+        sh 'pwd'
+        sh 'export GOPATH="/go"'
         sh 'go get ./...'
         sh 'go build -o bin/rbl-control'
       }

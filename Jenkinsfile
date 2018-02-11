@@ -25,10 +25,14 @@ pipeline {
         
       }
       steps {
-        sh 'ls -ls'
+        sh 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'
         sh 'docker build . -t atarax/rbl-control'
         sh 'docker push atarax/rbl-control'
       }
     }
+  }
+
+  environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerhub_credentials')
   }
 }

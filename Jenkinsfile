@@ -8,7 +8,6 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mkdir go'
         sh 'go build -o bin/rbl-control'
         sh 'export GOPATH="$(pwd)/go"'
         sh 'go get ./...'

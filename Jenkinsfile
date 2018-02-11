@@ -46,17 +46,17 @@ pipeline {
               -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
               -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
               atarax/rbl-control:intermediate \
-              /rbl-control -r "eu-central-1" -c create'''
+              /rbl-control -v -r "eu-west-1" -c create'''
         sh '''docker run \
               -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
               -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
               atarax/rbl-control:intermediate \
-              /rbl-control -r "eu-central-1" -c list'''
+              /rbl-control -v -r "eu-west-1" -c list'''
         sh '''docker run \
               -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
               -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
               atarax/rbl-control:intermediate \
-              /rbl-control -r "eu-central-1" -c destroy'''
+              /rbl-control -v -r "eu-west-1" -c destroy'''
       }
     }
     stage('Deploy Image') {

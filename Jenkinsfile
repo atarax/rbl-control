@@ -16,5 +16,16 @@ pipeline {
         sh 'go build -o bin/rbl-control'
       }
     }
+    stage('Hello') {
+      agent {
+        docker {
+          image 'docker'
+        }
+        
+      }
+      steps {
+        sh 'echo "hello from docker"'
+      }
+    }
   }
 }

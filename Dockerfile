@@ -1,7 +1,6 @@
 FROM alpine:latest as certificates
 RUN apk --no-cache add ca-certificates
 WORKDIR /root/
-CMD ["./app"]  
 
 # RUNTIME
 

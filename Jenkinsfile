@@ -1,7 +1,7 @@
 pipeline {
   agent none
   stages {
-    stage('Build') {
+    stage('Build Binary') {
       agent {
         docker {
           image 'golang'
@@ -17,7 +17,7 @@ pipeline {
         sh 'go build -o bin/rbl-control'
       }
     }
-    stage('Hello') {
+    stage('Build Container') {
       agent {
         docker {
           image 'docker'
@@ -26,7 +26,8 @@ pipeline {
       }
       steps {
         sh 'ls -la'
-        sh 'ls -la /go/bin/github.com/atarax/rbl-control'
+        sh 'ls -la /go'
+        sh 'ls -la /go/src/github.com/atarax/rbl-control'
       }
     }
   }

@@ -16,6 +16,11 @@ pipeline {
       }
     }
     stage('Hello') {
+      agent {
+        docker {
+          image 'docker'
+        }
+      }
       steps {
         sh 'echo "hello from docker"'
       }

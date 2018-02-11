@@ -43,7 +43,7 @@ pipeline {
       steps {
         sh 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'
         sh '''docker run \
-              -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID 
+              -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
               -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY 
               atarax/rbl-control:intermediate 
               /rbl-control -r "eu-west-1" -c list'''

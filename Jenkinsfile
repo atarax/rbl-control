@@ -25,6 +25,7 @@ pipeline {
         
       }
       steps {
+        sh 'ls -ls'
         sh 'docker build . -t atarax/rbl-control'
         sh 'docker push atarax/rbl-control'
       }

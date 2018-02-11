@@ -5,11 +5,6 @@ pipeline {
     }  
   }
   stages {
-     agent {
-       docker {
-         image 'docker'
-       }     
-     }
      stage('Build') {
       steps {
         sh 'ls -la'

@@ -22,7 +22,8 @@ pipeline {
         }
       }
       steps {
-        sh 'echo "hello from docker"'
+        sh 'ls -la'
+        sh 'ls -la /src'
       }
     }
   }

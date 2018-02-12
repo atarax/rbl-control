@@ -9,7 +9,7 @@ pipeline {
         
       }
       steps {
-        sh "echo $INTERMEDIATE_IMAGE_TAG"
+        sh "echo $AWESOME_BUILD"
         sh 'pwd'
         sh 'export GOPATH="/go"'
         sh 'mkdir -p /go/src/github.com/atarax/rbl-control'

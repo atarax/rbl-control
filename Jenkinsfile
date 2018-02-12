@@ -10,6 +10,7 @@ pipeline {
       }
       steps {
         sh "echo $AWESOME_BUILD"
+        sh "printenv"
         sh 'pwd'
         sh 'export GOPATH="/go"'
         sh 'mkdir -p /go/src/github.com/atarax/rbl-control'

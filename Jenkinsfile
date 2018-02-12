@@ -9,7 +9,7 @@ pipeline {
         
       }
       steps {
-        sh 'echo $INTERMEDIATE_IMAGE_TAG'
+        sh "echo $INTERMEDIATE_IMAGE_TAG"
         sh 'pwd'
         sh 'export GOPATH="/go"'
         sh 'mkdir -p /go/src/github.com/atarax/rbl-control'
@@ -33,45 +33,45 @@ pipeline {
         sh 'docker push atarax/rbl-control:intermediate'
       }
     }
-    stage('Test Container') {
-      agent {
-        docker {
-          image 'docker'
-        }
+    // stage('Test Container') {
+    //   agent {
+    //     docker {
+    //       image 'docker'
+    //     }
         
-      }
-      steps {
-        sh 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'
-        sh '''docker run \
-              -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-              -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-              atarax/rbl-control:intermediate \
-              /rbl-control -v -r "eu-west-1" -c create'''
-        sh '''docker run \
-              -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-              -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-              atarax/rbl-control:intermediate \
-              /rbl-control -v -r "eu-west-1" -c list'''
-        sh '''docker run \
-              -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-              -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-              atarax/rbl-control:intermediate \
-              /rbl-control -v -r "eu-west-1" -c destroy'''
-      }
-    }
-    stage('Deploy Image') {
-      agent {
-        docker {
-          image 'docker'
-        }
-      }
-      steps {
-        sh 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'
-        sh 'docker pull atarax/rbl-control:intermediate'
-        sh 'docker tag atarax/rbl-control:intermediate atarax/rbl-control:stable'
-        sh 'docker push atarax/rbl-control:stable'
-      }
-    }
+    //   }
+    //   steps {
+    //     sh 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'
+    //     sh '''docker run \
+    //           -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+    //           -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+    //           atarax/rbl-control:intermediate \
+    //           /rbl-control -v -r "eu-west-1" -c create'''
+    //     sh '''docker run \
+    //           -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+    //           -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+    //           atarax/rbl-control:intermediate \
+    //           /rbl-control -v -r "eu-west-1" -c list'''
+    //     sh '''docker run \
+    //           -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+    //           -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+    //           atarax/rbl-control:intermediate \
+    //           /rbl-control -v -r "eu-west-1" -c destroy'''
+    //   }
+    // }
+    // stage('Deploy Image') {
+    //   agent {
+    //     docker {
+    //       image 'docker'
+    //     }
+    //   }
+    //   steps {
+    //     sh 'docker login -u ${DOCKERHUB_CREDENTIALS_USR} -p ${DOCKERHUB_CREDENTIALS_PSW}'
+    //     sh 'docker pull atarax/rbl-control:intermediate'
+    //     sh 'docker tag atarax/rbl-control:intermediate atarax/rbl-control:stable'
+    //     sh 'docker push atarax/rbl-control:stable'
+    //   }
+    // }
   }
   environment {
     DOCKERHUB_CREDENTIALS = credentials('dockerhub_credentials')

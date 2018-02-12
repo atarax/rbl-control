@@ -9,7 +9,7 @@ pipeline {
         
       }
       steps {
-        sh 'ls -la'
+        sh 'echo $INTERMEDIATE_IMAGE_TAG'
         sh 'pwd'
         sh 'export GOPATH="/go"'
         sh 'mkdir -p /go/src/github.com/atarax/rbl-control'
@@ -77,5 +77,6 @@ pipeline {
     DOCKERHUB_CREDENTIALS = credentials('dockerhub_credentials')
     AWS_ACCESS_KEY_ID = credentials('aws_access_key_id')
     AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
+    INTERMEDIATE_IMAGE_TAG = $GIT_COMMIT
   }
 }

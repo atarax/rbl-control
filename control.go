@@ -59,11 +59,7 @@ func main() {
 	case "create":
 		securityGroupID := ensureSecurityGroup(sess, K8LSecurityGroupName)
 		publicIP := createInstance(sess, amiPerRegion[region], securityGroupID, K8LSecurityGroupName)
-
-		inventoryFile, _ := os.Create("/tmp/inventory")
-		inventoryFile.WriteString("[k8l_master]\n")
-		inventoryFile.WriteString(publicIP)
-		inventoryFile.Sync()
+		fmt.Printf(publicIP)
 
 	case "destroy":
 		var instanceIDs []string

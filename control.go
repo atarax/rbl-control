@@ -59,7 +59,7 @@ func main() {
 	case "create":
 		securityGroupID := ensureSecurityGroup(sess, K8LSecurityGroupName)
 		publicIP := createInstance(sess, amiPerRegion[region], securityGroupID, K8LSecurityGroupName)
-		fmt.Printf(publicIP)
+		fmt.Println(publicIP)
 
 	case "destroy":
 		var instanceIDs []string
